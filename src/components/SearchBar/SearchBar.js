@@ -63,8 +63,10 @@ const [currentSortByValue, setCurrentSortByValue]=useState('best_match');
             </div>
             <div className="SearchBar-fields">
                 <input placeholder="Search Cuisines"
+                       value={searchCuisine}
                        onChange={(event)=>setSearchCusine(event.target.value)}/>
                 <input placeholder="Where?"
+                       value={searchLocation}
                        onChange={(event)=>setSearchLocation(event.target.value)}/>
             </div>
             <div className="SearchBar-submit">
