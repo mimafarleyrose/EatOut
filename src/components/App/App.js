@@ -13,12 +13,14 @@ const [searchQuery, setSearchQuery]=useState({
     sortBy:''
 })
 const [results, setResults]=useState([]);
-const [response, setResponse]=useState([]);
+const [response, setResponse]=useState(false);
 const [searching, setSearching]=useState(false);
 const [validSearchQuery, setValidSearchQuery]=useState(false);
 
 
   const searchYelp=( term , location , sortBy )=> {
+      setResponse(false);
+      setValidSearchQuery(false);
       Yelp.search(term, location, sortBy).then((businesses) => {
           setResponse(true)
           setValidSearchQuery(true)
