@@ -19,8 +19,9 @@ const [validSearchQuery, setValidSearchQuery]=useState(false);
 
 
   const searchYelp=( term , location , sortBy )=> {
-      Yelp.search(term, location, sortBy, (input) => setValidSearchQuery(input)).then((businesses) => {
+      Yelp.search(term, location, sortBy).then((businesses) => {
           setResponse(true)
+          setValidSearchQuery(true)
           setResults(businesses)
       })
   }
