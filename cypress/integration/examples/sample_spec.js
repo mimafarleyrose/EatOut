@@ -36,4 +36,27 @@ describe('App', () => {
         cy.contains('Oops! not enough information here, please add some more');
     })
 
+    it('When user searches nothing an error message is rendered, then on valid search results are rendered', async () => {
+        cy.get('input:first')
+            .type('p')
+        cy.get('input:last')
+            .type('l')
+
+        cy.contains('Let\'s Go').click()
+
+        cy.contains('Oops! not enough information here, please add some more')
+
+        cy.get('input:first')
+            .type('izza')
+        cy.get('input:last')
+            .type('ondon')
+            .type('{enter}')
+
+
+
+        cy.contains('looking for restaurants...');
+        await cy.contains('Here\'s what we found for "pizza" in london');
+
+    })
+
 })

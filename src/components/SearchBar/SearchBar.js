@@ -54,7 +54,7 @@ handleSearch()
   useEffect(()=>{
 
       if(searchCuisine.length>2 && searchLocation.length>2){
-          window.addEventListener('keypress', (event)=>handleSearch(event))
+          window.addEventListener('keypress', (event)=>handleEnter(event))
       }
       // eslint-disable-next-line
   },[searchCuisine, searchLocation])
@@ -79,7 +79,7 @@ handleSearch()
                        className={'action-email'}
                        data-qa={'test-example'}
                        value={searchCuisine}
-                       onChange={(event)=>setSearchCuisine(event.target.value)}/>
+                       onChange={(event)=>{setSearchCuisine(event.target.value)}}/>
                 <input placeholder="Where?"
                        value={searchLocation}
                        onChange={(event)=>setSearchLocation(event.target.value)}/>
