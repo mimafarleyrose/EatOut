@@ -16,18 +16,22 @@ useEffect(()=>{
 
     return      (
         <>
-        {props.searching && (
     <div className={'SearchQuery'}>
-        {props.response !== true ?
+        {
+            props.errorInSearch === true && (
+                <div>{'Oops! not enough information here, please add some more'}</div>
+            )
+        }
+        { props.searching && (props.response !== true ?
             <div>{'looking for restaurants...'}</div>:
             (<div>
                 {props.validSearchQuery === true?
                     (`Here's what we found for "${searchQuery.term}" in ${searchQuery.location}`):
                     ('no restaurants found :( try searching for something else')
                 }
-            </div>)}
+            </div>))}
+
     </div>
-        )}
         </>
     )
 }

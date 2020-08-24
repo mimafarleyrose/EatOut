@@ -3,7 +3,7 @@ import './SearchBar.css';
 
 
 export const SearchBar = (props) =>{
-const [searchCuisine, setSearchCusine]=useState('');
+const [searchCuisine, setSearchCuisine]=useState('');
 const [searchLocation, setSearchLocation]=useState('');
 const [currentSortByValue, setCurrentSortByValue]=useState('best_match');
 
@@ -16,7 +16,21 @@ const [currentSortByValue, setCurrentSortByValue]=useState('best_match');
       id: 'review_count'
     }];
 
-  const handleSearch = (event) => {
+
+  const searchQueryIsValid = (event) => {
+      event.preventDefault();
+
+      if(2>searchLocation.length || 2>searchLocation.length) {
+          props.errorInSearch()
+}
+
+      else {
+handleSearch()
+      }
+  }
+
+
+  const handleSearch = () => {
       props.searching(true)
       props.searchQuery({
           term:searchCuisine,
@@ -24,12 +38,11 @@ const [currentSortByValue, setCurrentSortByValue]=useState('best_match');
           sortBy:currentSortByValue
       })
       props.searchYelp(searchCuisine, searchLocation, currentSortByValue)
-      event.preventDefault();
       cleanUp()
   }
   const cleanUp = () => {
       setSearchLocation('')
-      setSearchCusine('')
+      setSearchCuisine('')
       window.removeEventListener('keypress', (event)=>handleEnter(event))
 
   } ;
@@ -41,7 +54,7 @@ const [currentSortByValue, setCurrentSortByValue]=useState('best_match');
   useEffect(()=>{
 
       if(searchCuisine.length>2 && searchLocation.length>2){
-          window.addEventListener('keypress', (event)=>handleEnter(event))
+          window.addEventListener('keypress', (event)=>handleSearch(event))
       }
       // eslint-disable-next-line
   },[searchCuisine, searchLocation])
@@ -63,15 +76,17 @@ const [currentSortByValue, setCurrentSortByValue]=useState('best_match');
             </div>
             <div className="SearchBar-fields">
                 <input placeholder="Search Cuisines"
+                       className={'action-email'}
+                       data-qa={'test-example'}
                        value={searchCuisine}
-                       onChange={(event)=>setSearchCusine(event.target.value)}/>
+                       onChange={(event)=>setSearchCuisine(event.target.value)}/>
                 <input placeholder="Where?"
                        value={searchLocation}
                        onChange={(event)=>setSearchLocation(event.target.value)}/>
             </div>
             <div className="SearchBar-submit">
                 <button
-                    onClick={(event)=>handleSearch(event)}>
+                    onClick={(event)=>searchQueryIsValid(event)}>
                     {'Let\'s Go'}
                 </button>
             </div>

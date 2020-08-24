@@ -13,12 +13,14 @@ const [searchQuery, setSearchQuery]=useState({
     sortBy:''
 })
 const [results, setResults]=useState([]);
+const [errorInSearch, setErrorInSearch]=useState(false);
 const [response, setResponse]=useState(false);
 const [searching, setSearching]=useState(false);
 const [validSearchQuery, setValidSearchQuery]=useState(false);
 
 
   const searchYelp=( term , location , sortBy )=> {
+      setErrorInSearch(false)
       setResponse(false);
       setValidSearchQuery(false);
       Yelp.search(term, location, sortBy).then((businesses) => {
@@ -35,12 +37,14 @@ const [validSearchQuery, setValidSearchQuery]=useState(false);
                    searchYelp={searchYelp}
                    searching={()=>setSearching(true)}
                    searchQuery={(input)=>setSearchQuery(input)}
+                   errorInSearch={()=>setErrorInSearch(true)}
                />
                <SearchQuery
                    searchQuery={searchQuery}
                    searching={searching}
                    validSearchQuery={validSearchQuery}
                    response={response}
+                   errorInSearch={errorInSearch}
                />
                <BusinessList businesses={results}/>
          </div>
